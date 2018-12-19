@@ -14,7 +14,7 @@ This lesson assumes a basic knowledge of JavaScript. It will be assumed you have
 3. This guide will assume you are building or working with a Single Page Application (SPA). This is the biggest usecase for React and is how much of React's benefits are realized. This is not the only way. When a legacy site is being migrated, or in a handful of other instances React can be "injected" into different subordinate parts of a web app. React is most useful when the power of its component architecture is leveraged from top to bottom. Having multiple injection sites breaks this continuity. Another disadvantage is that when React is mounted to different DOM elements they are essentially separate islands and cannot easily pass props nor reliably share state. This is only mentioned to explain that there are some use cases that prove an exception to the rule, but the SPA implementation is much more ubiquitous.
 
 4. You will see syntax that you may not have seen when studying JS. This is EcmaScript 2015 (ES2015), (_also confusingly called ES6_). ES2015 goes hand-in-hand with React. It is not mandatory, but it is expected in the way that TypeScript is expected with Angular. You will just about always see them together in the wild. It's so expected that it's worth making a diversion to highlight a few of the differences. The next section will hit the changes you are most likely to see.
-
+<br><br>
 ## EcmaScript 2015 (ES2015/ES6) - The JS Features You Didn't Know You Wanted
 
 ES2015 and ES6 are purposely used interchangeably in this lesson because you may see them both. They are two names for the same thing. Most of the changes are syntactic sugar that make life easier for developers. "Syntactic sugar" might make it sound like these features are window dressing and are unimportant. That's not the case, particularly in the case of React which makes use of things like ES2015 classes and modules as best practices.  
@@ -32,11 +32,11 @@ function add(a, b){
 }
 
 // ES2015 (The JS you'll love):
-(a, b) => {
+const add = (a, b) => {
     console.log(a + b);
 };
 ```
-This looks like an academic difference at first glance, however unlike a normal function where `this` needs to be explicitly bound to its surrounding code, an arrow function shares the lexical `this` context with its surrounding code. Please review the JavaScript lessons for further information on lexical scope. In any case, this will become a major convenience in classes, which are also new.
+Ignore the `const` for now. This could have been a `var` instead, but would have been bad form, as you will see below. This looks like an academic difference at first glance, however unlike a normal function where `this` needs to be explicitly bound to its surrounding code, an arrow function shares the lexical `this` context with its surrounding code. Please review the JavaScript lessons for further information on lexical scope. In any case, this will become a major convenience in classes, which are also new.
 
 ### Classes: 
 ```JS
@@ -178,34 +178,3 @@ import foo from 'myFunc';
 foo();
 ```
 Classes can exported and imported the same way!
-
-
-
-//end of es6
-
-
-reasons for create-react-app
-
-- transpiler(babel)
-- webpack
-- hot reload
-- Great (if not standard) starting structure, but not a lot of confusing/useless scaffolding
-- ===========
-- Questions:
-- express??? is it there by default
-- is there an http library by default?
-
-
-
-React:
-
-React-dom and mounting to a root dom element
-
-Functional Components
-
-Class Components
-
-Lifecycle hooks
-
-
-
