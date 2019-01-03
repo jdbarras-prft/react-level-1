@@ -2,9 +2,9 @@ What is React?
 
 reasons for create-react-app
 
-- transpiler(babel)
-- webpack
-- hot reload
+- transpiler(babel) (react specific)
+- webpack (react specific)
+- hot reload (mostly a webpack setting)
 - Great (if not standard) starting structure, but not a lot of confusing/useless scaffolding
 - ===========
 - Questions:
@@ -15,7 +15,7 @@ reasons for create-react-app
 
 React:
 
-React-dom and mounting to a root dom element
+React-dom and mounting to a root dom element vs mounting to something else
 
 Functional Components
 
