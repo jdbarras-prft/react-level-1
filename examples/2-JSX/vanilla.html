@@ -15,7 +15,15 @@
 <script type='text/babel'>
 
     // React.createElement(<elementtype />, {attributes}, ...children)
-    const element = React.createElement('h1', {className: 'greeting'}, 'Hello from vanilla js');
+    const element = React.createElement(
+      'div', 
+      {className: 'greeting'}, 
+      React.createElement(
+        'h1', 
+        null, 
+        'Hello from vanilla js'
+        )
+      );
 
     ReactDOM.render(element, document.getElementById('root'));
 
