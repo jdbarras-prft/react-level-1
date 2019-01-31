@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <title>React.createElement Example</title>
+  </head>
+  <body>
+    <div id='root'></div>
+
+    <script>
+      const headerElement = React.createElement(
+        'h1',                  // Type of element
+        { id: 'header' },      // attributes of this element
+        'React Workshop'       // Child/Children of element (what goes in the html tags)
+      );
+
+      /*
+      *    This produces an output that resolves to:
+      *    <h1 id='header'>React Workshop</h1>
+      */
+
+      /* Uncomment this to see object in console */
+
+      // console.log(headerElement);
+
+      /* Uncomment this to render to DOM */
+      
+      // ReactDOM.render(
+      //   headerElement,                     // React element (or component) to render
+      //   document.getElementById('root')    // DOM element to hold that element (or component) / This is a plain JS selector
+      // );
+    </script>
+
+  </body>
+</html>
+
+
+<!-- References -->
+<!-- reactjs.org -->
+<!-- tylermcginnis.com -->
