@@ -4,17 +4,19 @@
 This lesson assumes a basic knowledge of JavaScript. It will be assumed you have read and understand the concepts in the Level 1 and Level 2 JavaScript lessons. There are some concepts that are unique to React or Redux (or just heavily used in React and Redux and possibly not as much in vanilla JS) where a passable explanation will be given. If you want further enrichment, explore it! That’s how you learn! 
 
 ### A few notes before we start:
-1. You might have already noticed that I continually say “React and Redux” as if they must go together. This is not the case. React can stand alone, and there are other choices when it comes to state management apart from Redux. Flex is one, and now React comes out-of-the-box with the ability to use “context”. Flex has largely lost the war to Redux, and context does not scale quite as well. Not using a state management library at all becomes very difficult as your app scales.  
- There are as many opinions online as there are articles. Most agree that the downside of Redux is the learning curve and the upside is app scalability. Most rightly state that you can get by with a “small” app without a state manager. I don’t see a reason to do this. Redux is light-weight enough to use in an app of any size. As for the learning curve, it’s a “pay now or pay later” kind of thing. Invest the time and energy to figure it out and you will understand your app better, be able to separate concerns far better, and best of all, you will be able to access global state anywhere in your app. This is really awesome, and you’ll see why as we go on.  
+1. You might have already noticed that I continually say “React and Redux” as if they must go together. This is not the case. React can stand alone, and there are other choices when it comes to state management apart from Redux. Flux is one, and now React comes out-of-the-box with the ability to use “context”. The Flux pattern has largely lost the war to Redux, and context does not scale quite as well. Not using a state management library at all becomes very difficult as your app scales.  
+ There are as many opinions online as there are articles. Most agree that the downside of Redux is the learning curve and the upside is app scalability. Most rightly state that you can get by with a “small” app without a state manager. I don’t see a reason to do this. Redux is light-weight enough to use in an app of any size. As for the learning curve, it’s a “pay now or pay later” kind of thing. Invest the time and energy to figure it out and you will understand your app better, be able to separate concerns far better, and best of all, you will be able to access global state anywhere in your app. This is really awesome.
 
 2. This will – at times – be an attempt to distill down a Udemy course by Maximilian Schwarzmüller. His course is exhaustive and if you really want to understand React and Redux, you should take the course: 
  <https://www.udemy.com/react-the-complete-guide-incl-redux/learn/v4/overview> 
- That said, it’s 36 hours of video and we need a more accessible primer.  
+ That said, it’s 36 hours of video and we need a more accessible primer.
 
-3. This guide will assume you are building or working with a Single Page Application (SPA). This is the biggest usecase for React and is how much of React's benefits are realized. This is not the only way. When a legacy site is being migrated, or in a handful of other instances React can be "injected" into different subordinate parts of a web app. React is most useful when the power of its component architecture is leveraged from top to bottom. Having multiple injection sites breaks this continuity. Another disadvantage is that when React is mounted to different DOM elements they are essentially separate islands and cannot easily pass props nor reliably share state. This is only mentioned to explain that there are some use cases that prove an exception to the rule, but the SPA implementation is much more ubiquitous.
+3. To an even larger degree I borrowed, distilled, or very nearly infringed upon content by Tyler McGinnis in his excellent React bootcamp. I don't think I could have finished this when I did (even though it took me a long time) without using his pace, ordering, examples, and even some of his explanations as a guide. <https://tylermcginnis.com/free-react-bootcamp/>
 
-4. You will see syntax that you may not have seen when studying JS. This is EcmaScript 2015 (ES2015), (_also confusingly called ES6_). ES2015 goes hand-in-hand with React. It is not mandatory, but it is expected in the way that TypeScript is expected with Angular. You will just about always see them together in the wild. It's so expected that it's worth making a diversion to highlight a few of the differences. The next section will hit the changes you are most likely to see.
-<br><br>
+5. You will see syntax that you may not have seen when studying JS. This is EcmaScript 2015 (ES2015), (_also confusingly called ES6_). ES2015 goes hand-in-hand with React. It is not mandatory, but it is expected in the way that TypeScript is expected with Angular. You will just about always see them together in the wild. It's so expected that it's worth making a diversion to highlight a few of the differences. The next section will hit the changes you are most likely to see.
+
+<div style="page-break-after: always;"></div>
+
 ## EcmaScript 2015 (ES2015/ES6) - The JS Features You Didn't Know You Wanted
 
 ES2015 and ES6 are purposely used interchangeably in this lesson because you may see them both. They are two names for the same thing. Most of the changes are syntactic sugar that make life easier for developers. "Syntactic sugar" might make it sound like these features are window dressing and are unimportant. That's not the case, particularly in the case of React which makes use of things like ES2015 classes and modules as best practices.  
@@ -37,6 +39,8 @@ const add = (a, b) => {
 };
 ```
 Ignore the `const` for now. This could have been a `var` instead, but would have been bad form, as you will see below. This looks like an academic difference at first glance, however unlike a normal function where `this` needs to be explicitly bound to its surrounding code, an arrow function shares the lexical `this` context with its surrounding code. Please review the JavaScript lessons for further information on lexical scope. In any case, this will become a major convenience in classes, which are also new.
+
+<div style="page-break-after: always;"></div>
 
 ### Classes: 
 ```JS
@@ -69,6 +73,8 @@ console.log(`${templates}: ${humble}, but ${stillCool}!`);
 ```
 This is a convenience thing. Note the use of back ticks [ ` ] surrounding the string. 
 
+<div style="page-break-after: always;"></div>
+
 ### Const and Let:  
 This one is kind of a big deal. As a best practice, the `var` keyword has been replaced. `var` will still work. In fact, not only will it still work, but once Babel is finished everything will be turned right back into `var` anyway. On the ES6 front, however, we want to use `const` and `let`. 
 
@@ -95,6 +101,8 @@ function f() {
   }
 }
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Default Parameters:  
 Just what it sounds like. If you pass an argument then it's whatever you passed in. If not, it falls back to the default.
@@ -130,8 +138,10 @@ howManyArgs('I', 'am', 'getting', 'tired', 42);
 // There are a total of 5 args.
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Spread Operators
-Reverse of rest parameters. A spread operator is used to make a list of arguments out of an array. 
+Used in assignments. Reverse of rest parameters. A spread operator is used to make a list of arguments out of an array. 
 ```JS
 let arr = [3, 5, 1];
 let arr2 = [8, 9, 15];
@@ -163,6 +173,8 @@ console.log(square(11)); // 121
 console.log(diag(4, 3)); // 5
 ```
 Note the names in curly braces in the import
+
+<div style="page-break-after: always;"></div>
 
 **Default export/import:**
 ```JS

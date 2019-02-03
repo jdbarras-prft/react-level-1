@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <title>React Components</title>
+  </head>
+  <body>
+    <div id='root'></div>
+
+    <script>
+
+      function CoeComponent (props) {
+          return React.createElement(
+          'h1',
+          null, 
+          props.coeName   
+        );
+      }
+
+      function CourseComponent (props) {
+          return React.createElement(
+          'h3',
+          null,
+          props.course
+        );
+      }
+
+      function InstructorComponent (props) {
+        return React.createElement(
+          'p',
+          null,
+          props.instructor
+        );
+      }
+
+      const wrapperElement = React.createElement(
+        'div',
+        { id: 'container' },
+        React.createElement(CoeComponent, { coeName: 'Frontend COE' }),
+        React.createElement(CourseComponent, { course: 'React Workshop' }),
+        React.createElement(InstructorComponent, { instructor: 'Jeff Barras' })
+      );
+
+      ReactDOM.render(wrapperElement, document.getElementById('root'));
+    </script>
+
+  </body>
+</html>
+
+
+<!-- REFERENCES -->
+<!-- reactjs.org -->
+<!-- tylermcginnis.com -->
