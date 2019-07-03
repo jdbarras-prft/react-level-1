@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>React JSX Example</title>
+  </head>
+  <body>
+    <div id='root'></div>
+
+    <script type='text/babel'>
+
+      function CoeComponent (props) {
+          return <h1 style={{color: props.color}}>{props.coeName}</h1>
+      }
+
+      function CourseComponent (props) {
+          return <h3>{props.course}</h3>
+      }
+
+      function InstructorComponent (props) {
+        return <p>{props.instructor}</p>
+      }
+
+      function App (props) {
+        return (
+          <div id='container'>
+            <CoeComponent coeName='Frontend COE' color={'orange'}/>
+            <CourseComponent course='React Workshop'/>
+            <InstructorComponent instructor='Jeff Barras'/>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+  </body>
+</html>
+
+
+<!-- REFERENCES -->
+<!-- reactjs.org -->
+<!-- tylermcginnis.com -->
