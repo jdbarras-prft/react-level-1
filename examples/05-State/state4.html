@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>React Stateful Component Example</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // functional component:
+      const TodoList = props => {
+        return (
+          <ul>
+            {props.list.map((item, index) => (
+              <li key={`${item}-${index}`}>
+                <span>{item} </span>
+                <button onClick={() => props.onRemoveItem(item)}>Remove</button>
+              </li>
+            ))}
+          </ul>
+        );
+      };
+
+      // class component
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+            todos: ['eat', 'sleep', 'code'],
+            input: '' //<-- holds the value of the input box
+          };
+        }
+
+        handleRemoveTodo = item => {
+          this.setState(currentState => {
+            return {
+              todos: currentState.todos.filter(todo => todo !== item)
+            };
+          });
+        };
+
+        handleAddTodo = () => {
+          this.setState(currentState => ({
+            //<-- Note the implicit return... This is just shorthand for { return {} }
+            todos: currentState.todos.concat([currentState.input]),
+            input: ''
+          }));
+        };
+
+        updateInput = e => {
+          const value = e.target.value;
+          this.setState({ input: value }); // Don't need functional setState(() => ({})) because we don't care about prevState.
+        };
+
+        render() {
+          return (
+            <div>
+              <input
+                type="text"
+                placeholder="new item"
+                value={this.state.input} //<-- This makes the the input field a "controlled" component.
+                onChange={this.updateInput}
+              />
+              <button onClick={this.handleAddTodo}>Submit</button>
+              <TodoList
+                list={this.state.todos}
+                onRemoveItem={this.handleRemoveTodo}
+              />
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+    <a href="./state3.html">PREV</a>
+    <a href="./state5.html">NEXT</a>
+  </body>
+</html>
+
+<!-- REFERENCES -->
+<!-- reactjs.org -->
+<!-- tylermcginnis.com -->

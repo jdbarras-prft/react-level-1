@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>React Stateful Component Example</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // functional component:
+      const TodoList = props => {
+        return (
+          <div>
+            <h2>Todo List</h2>
+            <ul>
+              {props.list.map((item, index) => (
+                <li key={`${item}-${index}`}>
+                  <span>{item.task} </span>
+                  <button onClick={() => props.onRemoveItem(item.task)}>
+                    Remove
+                  </button>
+                  <button onClick={() => props.onToggleCompleted(item.task)}>
+                    Complete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      };
+
+      const CompletedList = props => {
+        return (
+          <div>
+            <h2>Completed List</h2>
+            <ul>
+              {props.list.map((item, index) => (
+                <li key={`${item}-${index}`}>
+                  <span>{item.task} </span>
+                  <button onClick={() => props.onToggleCompleted(item.task)}>
+                    Mark Incomplete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      };
+
+      // class component
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+            todos: [
+              {
+                task: 'eat',
+                completed: true
+              },
+              {
+                task: 'sleep',
+                completed: false
+              },
+              {
+                task: 'code',
+                completed: false
+              }
+            ],
+            input: ''
+          };
+        }
+
+        handleRemoveTodo = item => {
+          this.setState(currentState => {
+            return {
+              todos: currentState.todos.filter(todo => todo.task !== item)
+            };
+          });
+        };
+
+        handleAddTodo = () => {
+          this.setState(currentState => ({
+            todos: currentState.todos.concat([
+              {
+                task: currentState.input,
+                completed: false
+              }
+            ]),
+            input: ''
+          }));
+        };
+
+        updateInput = e => {
+          const value = e.target.value;
+          this.setState({ input: value });
+        };
+
+        handleToggleCompleted = task => {
+          this.setState(currentState => {
+            const todo = currentState.todos.find(todo => todo.task === task);
+
+            return {
+              todos: currentState.todos
+                .filter(todo => todo.task !== task)
+                .concat([
+                  {
+                    task,
+                    completed: !todo.completed
+                  }
+                ])
+            };
+          });
+        };
+
+        render() {
+          return (
+            <div>
+              <input
+                type="text"
+                placeholder="new item"
+                value={this.state.input}
+                onChange={this.updateInput}
+              />
+              <button onClick={this.handleAddTodo}>Submit</button>
+              <br />
+              <button onClick={() => this.setState({ todos: [] })}>Clear All</button>
+              <TodoList
+                list={this.state.todos.filter(item => item.completed === false)}
+                onRemoveItem={this.handleRemoveTodo}
+                onToggleCompleted={this.handleToggleCompleted}
+              />
+              <CompletedList
+                list={this.state.todos.filter(item => item.completed === true)}
+                onToggleCompleted={this.handleToggleCompleted}
+              />
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+    <a href="./state4.html">PREV</a>
+  </body>
+</html>
+
+<!-- REFERENCES -->
+<!-- reactjs.org -->
+<!-- tylermcginnis.com -->

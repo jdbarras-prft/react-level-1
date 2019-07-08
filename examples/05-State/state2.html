@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>React Stateful Component Example</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // functional component:
+      const TodoList = props => {
+        return (
+          <ul>
+            {props.list.map((item, index) => (
+              <li key={`${item}-${index}`}>{item}</li>
+            ))}
+          </ul>
+        );
+      };
+
+      // class component
+      class App extends React.Component {
+        constructor(props) {
+          super(props); //<--- invokes the constructor of parent (React.Component)
+          
+          this.state = {
+            todos: ['eat', 'sleep', 'code'] // <-- now the groceries array lives in the component instance
+          }
+        }
+
+        render() { // <--- Classes return the React element from the render() method
+          return (
+            <div>
+              <TodoList list={this.state.todos} />
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+    <a href="./state1.html">PREV</a>
+    <a href="./state3.html">NEXT</a>
+  </body>
+</html>
+
+<!-- REFERENCES -->
+<!-- reactjs.org -->
+<!-- tylermcginnis.com -->

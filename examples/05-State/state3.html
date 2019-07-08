@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>React Stateful Component Example</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // functional component:
+      const TodoList = props => {
+        return (
+          <ul>
+            {props.list.map((item, index) => (
+              <li key={`${item}-${index}`}>
+                <span>{item} </span>
+                <button onClick={() => props.onRemoveItem(item)}>Remove</button> {/* This is a common pattern for event handling */}
+                {/* Note that you must pass onClick a function DEFINITION, not a function INVOCATION. This is why you need the () => */}
+              </li>
+            ))}
+          </ul>
+        );
+      };
+
+      // class component
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+            todos: ['eat', 'sleep', 'code']
+          };
+        }
+
+        handleRemoveTodo = item => {
+          // Don't do this... you are mutating state and React won't know it's changed.
+          //this.state.todos = this.state.todos.filter((todo) => todo !== item);
+
+          // Don't do this either. setState is asynchronous. Different setState calls in the same update cycle will
+          // be combined in potentially unexpected ways.
+          // this.setState({ todos: this.state.todos.filter((todo) => todo !== item) })
+
+          // Do this instead... setState() tells React that state is being changed and it needs to re-render.
+          this.setState(currentState => {
+            return {
+              todos: currentState.todos.filter(
+                todo => todo !== item
+              )
+            };
+          });
+        };
+
+        handleAddTodo = () => {
+          // Implemented in state4.html
+        };
+
+        render() {
+          return (
+            <div>
+              <TodoList
+                list={this.state.todos}
+                onRemoveItem={this.handleRemoveTodo} // <-- functions can be passed as props just like data can
+              />
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+    <a href="./state2.html">PREV</a>
+    <a href="./state4.html">NEXT</a>
+  </body>
+</html>
+
+<!-- REFERENCES -->
+<!-- reactjs.org -->
+<!-- tylermcginnis.com -->
