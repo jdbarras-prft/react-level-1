@@ -7,10 +7,35 @@
     <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <title>React Stateful Component Example</title>
+    <title>React Lifecycle Hooks</title>
   </head>
   <body>
     <div id="root"></div>
+
+    <script>
+      window.API = {
+        fetchTodos() {
+          return new Promise((res, rej) => {
+            const todos = [
+              {
+                task: 'eat',
+                completed: true
+              },
+              {
+                task: 'sleep',
+                completed: false
+              },
+              {
+                task: 'code',
+                completed: false
+              }
+            ]
+
+            setTimeout(() => res(todos), 2000);
+          })
+        }
+      }
+    </script>
 
     <script type="text/babel">
       // functional component:
@@ -59,22 +84,30 @@
           super(props);
 
           this.state = {
-            todos: [
-              {
-                task: 'eat',
-                completed: true
-              },
-              {
-                task: 'sleep',
-                completed: false
-              },
-              {
-                task: 'code',
-                completed: false
-              }
-            ],
-            input: ''
+            todos: [],
+            input: '',
+            loading: true
           };
+          console.log('--constructor--');
+        }
+
+        componentDidMount() {
+          console.log('--componentDidMount--');
+          API.fetchTodos()
+            .then((todos) => {
+              this.setState({ 
+                todos,
+                loading: false
+              });
+            })
+        }
+
+        componentDidUpdate() {
+          console.log('--componentDidUpdate--');
+        }
+
+        componentWillUnmount() {
+          console.log('--componentWillUnmount--');
         }
 
         handleRemoveTodo = item => {
@@ -116,6 +149,12 @@
         };
 
         render() {
+          console.log('--render--');
+
+          if (this.state.loading) {
+            return <h1>Loading...</h1>
+          }
+
           return (
             <div>
               <input
