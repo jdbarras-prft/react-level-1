@@ -12,7 +12,12 @@
     <div id='root'></div>
 
     <script>
-
+      /*
+      *   1.  Now we will introduce components. A component is just a function (or class) that
+      *       returns an element. The important thing to note here is that instead of using
+      *       variables that we declared earlier in this file, the component's parent is
+      *       able to pass in props that are used to construct the element.
+      */
       function CoeComponent (props) {
           return React.createElement(
           'h1',
@@ -29,17 +34,28 @@
         );
       }
 
+      /*
+      *   2.  Since we are using functional components to create our elements
+      *       we can implement any kind of logic we wish to manipulate the element
+      *       that we return. In this case we will take the instructor name from props
+      *       and make it uppercase before we give it to our element as a child 
+      */
       function InstructorComponent (props) {
+        const capitalInstructor = props.instructor.toUpperCase();
+
         return React.createElement(
           'p',
           null,
-          props.instructor
+          capitalInstructor
         );
       }
 
       const wrapperElement = React.createElement(
         'div',
         { id: 'container' },
+        /*
+        *   3.  Instead of passing in an element, we can pass in a component that returns an element
+        */
         React.createElement(CoeComponent, { coeName: 'Frontend COE' }),
         React.createElement(CourseComponent, { course: 'React Workshop' }),
         React.createElement(InstructorComponent, { instructor: 'Jeff Barras' })

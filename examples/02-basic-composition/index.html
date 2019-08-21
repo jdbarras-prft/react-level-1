@@ -12,16 +12,22 @@
     <div id='root'></div>
 
     <script>
+      /*
+      *   1.  One of the primary React design principles is composition. We will create
+      *       some new elements and use composition to put them in a parent container
+      */
+
+      // First let's just make some string variables
       const coeName = 'FrontEnd COE';
       const course = 'React Workshop';
       const instructor = 'Jeff Barras';
 
-
+      // Now we will make three React elements using our variables
       const coeElement = React.createElement(
-        'h1',
-        null, 
-        coeName   
-      );
+        'h1',   // we want this one to be an h1
+        null,   // we don't need any props (aka attributes)
+        coeName // this element's child will simply be a string. 
+      );        // Remember it could be another element or entire tree of elements
 
       const courseElement = React.createElement(
         'h3',
@@ -35,14 +41,24 @@
         instructor
       );
 
+      /*
+      *   2.  Next we will make a container element that will be the parent for
+      *       the three children we just created.
+      */
       const wrapperElement = React.createElement(
-        'div',
-        { id: 'container' },
-        coeElement,
-        courseElement,
+        'div',                // We will wrap our elements in a div
+        { id: 'container' },  // We will give it an id of container. We could use this to select the dom element with js or css
+        coeElement,           // remember that the createElement function can take any number of
+        courseElement,        // children. They will be siblings in the dom tree
         instructorElement
       );
 
+      // Finally we will render just our top level container to the dom using ReactDOM.render()
+      // The entire virtual DOM tree will be constructed and reconciled against the DOM.
+      // We will also print the virtual dom representation to the console
+      // 
+      // <compare with document.getElementById('container') and console.dir(document.getElementById('container'))>
+      console.log(wrapperElement)
       ReactDOM.render(wrapperElement, document.getElementById('root'));
     </script>
 

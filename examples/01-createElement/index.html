@@ -12,27 +12,41 @@
     <div id='root'></div>
 
     <script>
+      /*
+      *   1. First we will create a React element. This way you can see the difference 
+      *      between a React virtual dom element and a dom element. The goal here is to 
+      *      see how heavy dom elements are and why we might want to update it only when
+      *      absolutely necessary
+      */
       const headerElement = React.createElement(
         'h1',                  // Type of element
-        { id: 'header' },      // attributes of this element
+        { id: 'header' },      // attributes of this element (aka "props")
         'React Workshop'       // Child/Children of element (what goes in the html tags)
       );
 
-      /*
-      *    This produces an output that resolves to:
-      *    <h1 id='header'>React Workshop</h1>
+      // This produces an output that resolves to:
+      // <h1 id='header'>React Workshop</h1>
+      
+      /*   
+      *   2. This will allow us to see the element in the console:
       */
 
-      /* Uncomment this to see object in console */
+      console.log(headerElement);
 
-      // console.log(headerElement);
-
-      /* Uncomment this to render to DOM */
+      /* 
+      *   3.  Now we will use ReactDOM.render() to render our React element to 
+      *       the DOM. It's important to note that this is a REACT ELEMENT...
+      *       which is an object representation of a DOM node 
+      *       ReactDOM will diff the virtual dom to the dom and update the DOM accordingly
+      *
+      *       <Uncomment this to render to DOM >
+      */
       
       // ReactDOM.render(
       //   headerElement,                     // React element (or component) to render
       //   document.getElementById('root')    // DOM element to hold that element (or component) / This is a plain JS selector
       // );
+      // console.log(document.getElementById('header'));
     </script>
 
   </body>
