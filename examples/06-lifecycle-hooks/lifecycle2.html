@@ -111,18 +111,18 @@
         }
 
         handleRemoveTodo = item => {
-          this.setState(currentState => {
+          this.setState(prevState => {
             return {
-              todos: currentState.todos.filter(todo => todo.task !== item)
+              todos: prevState.todos.filter(todo => todo.task !== item)
             };
           });
         };
 
         handleAddTodo = () => {
-          this.setState(currentState => ({
-            todos: currentState.todos.concat([
+          this.setState(prevState => ({
+            todos: prevState.todos.concat([
               {
-                task: currentState.input,
+                task: prevState.input,
                 completed: false
               }
             ]),
@@ -136,10 +136,10 @@
         };
 
         handleToggleCompleted = task => {
-          this.setState(currentState => {
-            const todo = currentState.todos.find(todo => todo.task === task);
+          this.setState(prevState => {
+            const todo = prevState.todos.find(todo => todo.task === task);
             return {
-              todos: currentState.todos.map((todo) => (
+              todos: prevState.todos.map((todo) => (
                 todo.task === task 
                   ? {...todo, completed: !todo.completed} 
                   : todo

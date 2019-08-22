@@ -20,8 +20,12 @@
             {props.list.map((item, index) => (
               <li key={`${item}-${index}`}>
                 <span>{item} </span>
+                {/* 3.  Finally we will make a button and assign it's 
+                        onclick(which is part of the regular DOM api) 
+                        our new function*/}
                 <button onClick={() => props.onRemoveItem(item)}>Remove</button> {/* This is a common pattern for event handling */}
-                {/* Note that you must pass onClick a function DEFINITION, not a function INVOCATION. This is why you need the () => */}
+                {/* Note that you must pass onClick a function DEFINITION, not a function INVOCATION. 
+                    This is why you need the () => */}
               </li>
             ))}
           </ul>
@@ -38,18 +42,26 @@
           };
         }
 
+        /*
+        *   1.  We will make some helper functions to add and remove todos from our list
+        *
+        */
         handleRemoveTodo = item => {
           // Don't do this... you are mutating state and React won't know it's changed.
           //this.state.todos = this.state.todos.filter((todo) => todo !== item);
 
           // Don't do this either. setState is asynchronous. Different setState calls in the same update cycle will
-          // be combined in potentially unexpected ways.
+          // be combined in potentially unexpected ways. 
           // this.setState({ todos: this.state.todos.filter((todo) => todo !== item) })
 
+          // If you need to derive the next state from
+          // the previous state, you should use the functional set state
+          // this.setState((prevState, props) => { return { foo: 'bar' }});
+
           // Do this instead... setState() tells React that state is being changed and it needs to re-render.
-          this.setState(currentState => {
+          this.setState(prevState => {
             return {
-              todos: currentState.todos.filter(
+              todos: prevState.todos.filter(
                 todo => todo !== item
               )
             };
@@ -65,6 +77,9 @@
             <div>
               <TodoList
                 list={this.state.todos}
+                /*
+                *   2. Next we will pass this function into our component
+                */
                 onRemoveItem={this.handleRemoveTodo} // <-- functions can be passed as props just like data can
               />
             </div>

@@ -13,17 +13,26 @@
     <div id="root"></div>
 
     <script type="text/babel">
+    
+      // 2. Next we will make the component that we called:
       const TodoList = props => {
         return (
           <ul>
+            {/* We will use array.map to make a new list item for each todo */}
             {props.list.map(item => (
               <li key={item}>{item}</li>
             ))}
           </ul>
         );
       };
+      // note that with arrow functions we can omit the curly braces and
+      // it will make it an implicit return. If all you want to do in a function
+      // is return a value, this is a shorthand way to do it <remove brackets and return>
+
 
       // Notice the change to ES6 arrow function expressions
+      // 1. In App we will make a call to a (so far) non existent component "TodoList"
+      //    we will give it a prop called "list" which will contain an array of items
       const App = props => {
         const todos = ['eat', 'sleep', 'code'];
         

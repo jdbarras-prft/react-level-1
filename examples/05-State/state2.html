@@ -13,6 +13,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
+    
       // functional component:
       const TodoList = props => {
         return (
@@ -27,17 +28,18 @@
       // class component
       class App extends React.Component {
         constructor(props) {
-          super(props); //<--- invokes the constructor of parent (React.Component)
+          super(props); //<--- invokes the constructor of parent (React.Component) ->
+          // which allows us to use this.props
           
           this.state = {
-            todos: ['eat', 'sleep', 'code'] // <-- now the groceries array lives in the component instance
+            todos: ['eat', 'sleep', 'code'] // <-- now the todo array lives in the component instance
           }
         }
 
-        render() { // <--- Classes return the React element from the render() method
+        render() { // <--- Classes return the React element from the render() method this method is called on rerender
           return (
             <div>
-              <TodoList list={this.state.todos} />
+              <TodoList list={this.state.todos} /> {/*Now todos is coming from state*/}
             </div>
           );
         }

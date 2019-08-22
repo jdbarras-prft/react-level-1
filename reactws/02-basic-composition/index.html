@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      const coeName = 'FrontEnd COE';
+      const course = 'React Workshop';
+      const instructor = 'Jeff Barras';
+
+      const coeElement = React.createElement('h1', null, coeName);
+
+      const courseElement = React.createElement('h3', null, course);
+
+      const instructorElement = React.createElement('p', null, instructor);
+
+      const wrapperElement = React.createElement(
+        'div',
+        { id: 'container' },
+        coeElement,
+        courseElement,
+        instructorElement
+      );
+
+      console.log(wrapperElement);
+      ReactDOM.render(wrapperElement, document.getElementById('root'));
+    </script>
+  </body>
+</html>

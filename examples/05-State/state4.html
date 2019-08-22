@@ -34,40 +34,60 @@
 
           this.state = {
             todos: ['eat', 'sleep', 'code'],
-            input: '' //<-- holds the value of the input box
+            // 2. We will make a state variable to hold the value of the input box
+            input: ''
           };
         }
 
         handleRemoveTodo = item => {
-          this.setState(currentState => {
+          this.setState(prevState => {
             return {
-              todos: currentState.todos.filter(todo => todo !== item)
+              todos: prevState.todos.filter(todo => todo !== item)
             };
           });
         };
 
+        /*
+        *   4.  Now we will create a function to add an item to the todo array
+        *       We will want to do two things when we click submit:
+        *           - put the value in the "input" field into our todo array
+        *           - clear the input box 
+        */
         handleAddTodo = () => {
-          this.setState(currentState => ({
-            //<-- Note the implicit return... This is just shorthand for { return {} }
-            todos: currentState.todos.concat([currentState.input]),
+          this.setState(prevState => ({
+            // <-- Note the implicit return... This is just shorthand for { return {} }
+            // concat, not push. We never ever directly mutate state. React needs to control
+            // state changes through setState for us. It's how React knows there was a change
+            // and it needs to rerender.
+            todos: prevState.todos.concat([prevState.input]), 
             input: ''
           }));
         };
 
-        updateInput = e => {
-          const value = e.target.value;
-          this.setState({ input: value }); // Don't need functional setState(() => ({})) because we don't care about prevState.
+        /*
+        *   3.  now we will make a function to handle changes to the input box.
+        *       we are taking the value of the input box and persisting it to our state variable
+        */
+        updateInput = value => {
+          // Don't need functional setState(() => ({})) because we don't care about prevState.
+          this.setState({ input: value }); 
         };
 
         render() {
           return (
             <div>
+            {/*
+              *   1. We will add an input and a button so that we can add items to our todo list
+              *       
+              *   5. <set value to state and onchange to updateInput handler>
+              */}
               <input
-                type="text"
-                placeholder="new item"
-                value={this.state.input} //<-- This makes the the input field a "controlled" component.
-                onChange={this.updateInput}
+                type="text" // the input type is a text input
+                placeholder="new item" // We will give the input box some place holder text for when it's empty
+                value={this.state.input} //<-- This makes the the input field a "controlled" component. It will come from state
+                onChange={event => this.updateInput(event.target.value)} // This is the event that will fire on change (every char)
               />
+
               <button onClick={this.handleAddTodo}>Submit</button>
               <TodoList
                 list={this.state.todos}

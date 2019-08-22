@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <title>React Lifecycle Hooks</title>
+    <title>React Hooks</title>
   </head>
   <body>
     <div id="root"></div>
@@ -112,17 +112,19 @@
         }
       }
 
-      class App extends React.Component {
-        constructor(props) {
-          super(props);
+      const App = props => {
 
-          this.state = {
-            todos: [],
-            input: '',
-            loading: true
-          };
-          console.log('--constructor--');
-        }
+        const [todos, setTodos] = useState([]);
+        const [input, setInput] = useState('');
+        const [loading, setLoading] = useState(true);
+
+        useEffect(() => {
+
+        }, []);
+        // ^ Empty array means to only do this on component mount. 
+        // If you want the effect to trigger on every render, don't supply a 2nd arg.
+        // If you want to do this based on a prop change, put a prop in this array
+        // The effect will only fire if the props in the array have changed
 
         componentDidMount() {
           console.log('--componentDidMount--');
