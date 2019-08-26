@@ -78,15 +78,43 @@
         );
       };
 
+      // 1. We will change Loading to a functional Component.
       const Loading = props => {
-
+        // 2. Functional components do not have constructors. 
+        //    we will instead use React.useState to replace our state variable.
         const [text, setText] = React.useState('Loading');
 
+        // 3. We will ignore componentDidMount() and componentWill Unmount 
+        //    for now but we will need to change it.
+
+        // 5. We will use the React.useEffect equivalent to componentDidMount
+        //    and componentWillUnmount
         React.useEffect(() => {
+          // 6. We can access text directly. We are using it to build a string
+          //    the value of "text" will change, but since this useEffect
+          //    will only run on the initial mount, we know that "text"
+          //    will have a value of Loading.
           const stopper = text + '...';
 
+          // 7. We will still save intervalId to a variable, but there are no
+          //    instance variables on a function. We can just save it to a 
+          //    plain old const since we are using it inside the same effect
           const intervalId = setInterval(() => {
             console.log('Interval Fired');
+            // 8. We will use the setText function to set the value of "text"
+            //    there is a functional setter just like setState.
+            //    It returns the previous value of the state variable it sets.
+            //
+            //    !!! It's important to note that you do not have access to 
+            //    !!! other state variables. If you need the previous state
+            //    !!! of another (like input and todos in App) then you should
+            //    !!! make an object using useState containing the two dependent
+            //    !!! state variables. 
+            //    
+            //    !!! Also important: useState's setters do not merge objects.
+            //    !!! it will overwrite the entire value of the state variable
+            //    !!! so don't forget to copy the other object properties that
+            //    !!! you aren't changing using the spread operator.
             setText(prevText => (
               prevText === stopper
                 ? 'Loading'
@@ -94,12 +122,20 @@
             ))
           }, 300);
 
+          // 9.  We will return a function that cleans up after this effect
+          //     In this case, since our effect only runs when the component
+          //     mounts, this return function will act as a componentWillUnmount.
+          //     Keep in mind this is not always the case. If you make an effect
+          //     that fires on every render, the return function will run before the
+          //     next render for example.
           return () => {
             console.log('--- Running cleanup, clearing interval ---');
             clearInterval(intervalId);
           }
         }, []);
 
+        // 4. We can access the state variable "text" directly now. 
+        //    It's just a const that is managed by React on every rerender.
         return <p>{text}</p>
       }
 
