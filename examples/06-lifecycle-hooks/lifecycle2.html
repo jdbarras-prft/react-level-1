@@ -12,6 +12,7 @@
   <body>
     <div id="root"></div>
 
+    <!-- 1. We will make a new script and create a mock API-->
     <script>
       window.API = {
         fetchTodos() {
@@ -31,7 +32,7 @@
               }
             ]
 
-            setTimeout(() => res(todos), 2000);
+            setTimeout(() => res(todos), 5000);
           })
         }
       }
@@ -84,15 +85,21 @@
           super(props);
 
           this.state = {
+            //2. We will initialize todos as an empty array
             todos: [],
             input: '',
+            //3. and make a loading flag. We will default it to true
+            //   when the component first mounts
             loading: true
           };
-          console.log('--constructor--');
+          console.log('--App constructor--');
         }
 
         componentDidMount() {
-          console.log('--componentDidMount--');
+          console.log('--App componentDidMount--');
+          // 5. On component mount we will call our api to get the
+          // todos list. When it returns we will set our todo list
+          // to the api response and set loading to false
           API.fetchTodos()
             .then((todos) => {
               this.setState({ 
@@ -103,11 +110,11 @@
         }
 
         componentDidUpdate() {
-          console.log('--componentDidUpdate--');
+          console.log('--App componentDidUpdate--');
         }
 
         componentWillUnmount() {
-          console.log('--componentWillUnmount--');
+          console.log('--App componentWillUnmount--');
         }
 
         handleRemoveTodo = item => {
@@ -130,8 +137,7 @@
           }));
         };
 
-        updateInput = e => {
-          const value = e.target.value;
+        updateInput = value => {
           this.setState({ input: value });
         };
 
@@ -149,8 +155,8 @@
         };
 
         render() {
-          console.log('--render--');
-
+          console.log('--App render--');
+          // 4. we will display a loading message while we wait for the api to return
           if (this.state.loading) {
             return <h1>Loading...</h1>
           }
@@ -161,7 +167,7 @@
                 type="text"
                 placeholder="new item"
                 value={this.state.input}
-                onChange={this.updateInput}
+                onChange={e => this.updateInput(e.target.value)}
               />
               <button onClick={this.handleAddTodo}>Submit</button>
               <br />
@@ -182,8 +188,6 @@
 
       ReactDOM.render(<App />, document.getElementById('root'));
     </script>
-
-    <a href="./state4.html">PREV</a>
   </body>
 </html>
 

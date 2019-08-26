@@ -7,26 +7,18 @@
     <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <title>React Stateful Component Example</title>
+    <title>Document</title>
   </head>
   <body>
     <div id="root"></div>
 
     <script type="text/babel">
-
-      /*
-      *   7.  We need to change our TodoList to accept objects rather than strings
-      *       we will also add a second button to toggle completed
-      */
-      // functional component:
       const TodoList = props => {
         return (
           <div>
-            {/*Let's add a label so that we can make a distinction between todo and completed*/}
             <h2>Todo List</h2>
             <ul>
               {props.list.map((item, index) => (
-                // now we need to use item.task for the task name
                 <li key={`${item.task}-${index}`}>
                   <span>{item.task} </span>
                   <button onClick={() => props.onRemoveItem(item.task)}>
@@ -42,11 +34,6 @@
         );
       };
 
-      /*
-      *   8.  Now we will make the CompletedList React Component that we just called
-      *       We can copy the Todo list and change the label and buttons
-      *       
-      */
       const CompletedList = props => {
         return (
           <div>
@@ -65,16 +52,10 @@
         );
       };
 
-      // class component
       class App extends React.Component {
         constructor(props) {
           super(props);
 
-          /*
-          *   1. We are going to change the structure of our todo array so that we
-          *      can have a completed list. We will make todos an array of objects
-          *       with a "completed" flag
-          */
           this.state = {
             todos: [
               {
@@ -94,31 +75,19 @@
           };
         }
 
-        /*
-        *   2.  We need to alter our remove and add functions to handle
-        *       the new way that we are storing todos.
-        */
         handleRemoveTodo = item => {
           this.setState(prevState => {
             return {
-              // our "item" parameter is still a string so
-              // all we need to change here is to compare todo.task
-              // that's where the string is representing that todo item
-              // our "item" parameter is still a string
               todos: prevState.todos.filter(todo => todo.task !== item)
             };
           });
         };
 
-        /*
-        *   3. When we add a todo we need to concat an object, not just a string
-        */
         handleAddTodo = () => {
           this.setState(prevState => ({
             todos: prevState.todos.concat([
               {
                 task: prevState.input,
-                // we will default to not completed
                 completed: false
               }
             ]),
@@ -130,27 +99,16 @@
           this.setState({ input: value });
         };
 
-        /*
-        *   4. Now we will make a helper function to handle the toggling of 
-        *       the complete flag it will accept a string representing the task
-        */
         handleToggleCompleted = task => {
           this.setState(prevState => {
-            // we will find the appropriate object in the todos array
             const todo = prevState.todos.find(todo => todo.task === task);
             return {
-              // and toggle the status of the completed flag
-              todos: prevState.todos.map(todo => (
-                todo.task === task 
-                // the spread operator returns all of the object's properties
-                // if we use destructuring and the spread operator together
-                // we can change the fields we want and leave the rest of the object
-                // unchanged
-                  ? {...todo, completed: !todo.completed}
-                  // if the task didn't match, just return the current todo object unchanged
+              todos: prevState.todos.map(todo =>
+                todo.task === task
+                  ? { ...todo, completed: !todo.completed }
                   : todo
-              ))
-            }
+              )
+            };
           });
         };
 
@@ -158,30 +116,17 @@
           return (
             <div>
               <input
-                type="text"
-                placeholder="new item"
+                type={'text'}
+                placeholder={'new item'}
                 value={this.state.input}
                 onChange={event => this.updateInput(event.target.value)}
               />
               <button onClick={this.handleAddTodo}>Submit</button>
-              {/*Finally we can add a button to clear all of the todos*/}
-              <br />
-              <button onClick={() => this.setState({ todos: [] })}>Clear All</button>
-              {/*
-              *   5. First we will need to only include items in the "todo" portion of our list
-              *       We can do that by filtering the array. I will do it right in place
-              *       I will also pass the toggle completed function
-              */}
               <TodoList
                 list={this.state.todos.filter(item => item.completed === false)}
-                //***** we are now sending objects instead of strings. TodoList will need to change
                 onRemoveItem={this.handleRemoveTodo}
                 onToggleCompleted={this.handleToggleCompleted}
               />
-              {/*
-              *   6.  Next I will make a second component that will accept 
-              *       a list of completed todos and the toggle completed function
-              */}
               <CompletedList
                 list={this.state.todos.filter(item => item.completed === true)}
                 onToggleCompleted={this.handleToggleCompleted}
@@ -193,11 +138,5 @@
 
       ReactDOM.render(<App />, document.getElementById('root'));
     </script>
-
-    <a href="./state4.html">PREV</a>
   </body>
 </html>
-
-<!-- REFERENCES -->
-<!-- reactjs.org -->
-<!-- tylermcginnis.com -->

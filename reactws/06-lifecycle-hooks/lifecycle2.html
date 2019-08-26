@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <title>React Lifecycle Hooks</title>
+    <title>Document</title>
   </head>
   <body>
     <div id="root"></div>
@@ -32,20 +32,18 @@
             ]
 
             setTimeout(() => res(todos), 5000);
-          })
+          });
         }
       }
     </script>
-
     <script type="text/babel">
-      // functional components:
       const TodoList = props => {
         return (
           <div>
             <h2>Todo List</h2>
             <ul>
               {props.list.map((item, index) => (
-                <li key={`${item}-${index}`}>
+                <li key={`${item.task}-${index}`}>
                   <span>{item.task} </span>
                   <button onClick={() => props.onRemoveItem(item.task)}>
                     Remove
@@ -66,7 +64,7 @@
             <h2>Completed List</h2>
             <ul>
               {props.list.map((item, index) => (
-                <li key={`${item}-${index}`}>
+                <li key={`${item.task}-${index}`}>
                   <span>{item.task} </span>
                   <button onClick={() => props.onToggleCompleted(item.task)}>
                     Mark Incomplete
@@ -78,61 +76,6 @@
         );
       };
 
-      // class components
-      // 1. We will make a new loading component. It will have state
-      //    and need access to lifecycle methods so we will need a class
-      class Loading extends React.Component {
-        constructor(props) {
-          super(props);
-
-          // 2. the state will begin as the text string "loading"
-          this.state = {
-            text: 'Loading'
-          }
-          console.log('--- Loading constructor ---');
-        }
-
-        componentDidMount() {
-          console.log('--- Loading componentDidMount ---');
-          // 3. We are going to add a period to the Loading text string
-          //    until we get to three periods, then we will start over
-          //    with no periods.
-
-          //    So first we set a stopper
-          const stopper = this.state.text + '...'; // "Loading..."
-
-          // 4. we will want the increment to run at a set interval
-          //    setInterval() returns an id. We will store that as an instance
-          //    variable so that we can get rid of this interval later.
-          this.intervalId = setInterval(() => {
-            console.log('Interval Fired');
-            this.state.text === stopper
-              ? this.setState({text: 'Loading'})
-              : this.setState((prevState) => {
-                return{
-                  text: prevState.text + '.'
-                }
-             })
-          }, 300)
-        }
-
-        // 6. Show the console without this method
-        //    note that the interval continues running after the
-        //    Loading component has unmounted from the DOM.
-        //    The componentWillUnmount method provides us with a means to
-        //    clean up after our components are torn down
-        //
-        // componentWillUnmount() {
-        //   console.log('--- Loading componentWillUnmount ---');
-        //   clearInterval(this.intervalId);
-        // }
-
-        render() {
-          console.log('--- Loading render ---');
-          return <p>{this.state.text}</p>
-        }
-      }
-
       class App extends React.Component {
         constructor(props) {
           super(props);
@@ -142,26 +85,32 @@
             input: '',
             loading: true
           };
-          console.log('--App constructor--');
+          console.log('--App constructor--')
         }
 
         componentDidMount() {
-          console.log('--App componentDidMount--');
+          console.log('--App componentDidMount--')
+
           API.fetchTodos()
-            .then((todos) => {
-              this.setState({ 
+            .then(todos => {
+              this.setState({
                 todos,
                 loading: false
-              });
+              })
             })
         }
 
-        componentDidUpdate() {
-          console.log('--App componentDidUpdate--');
+        shouldComponentUpdate(nextProps, nextState) {
+          console.log('--App shouldComponentUpdate--')
+          return true;
+        }
+
+        componentDidUpdate(prevProps, prevState) {
+          console.log('--App componentDidUpdate--')
         }
 
         componentWillUnmount() {
-          console.log('--App componentWillUnmount--');
+          console.log('--App componentWillUnmount--')
         }
 
         handleRemoveTodo = item => {
@@ -192,33 +141,29 @@
           this.setState(prevState => {
             const todo = prevState.todos.find(todo => todo.task === task);
             return {
-              todos: prevState.todos.map((todo) => (
-                todo.task === task 
-                  ? {...todo, completed: !todo.completed} 
+              todos: prevState.todos.map(todo =>
+                todo.task === task
+                  ? { ...todo, completed: !todo.completed }
                   : todo
-              ))
-            }
+              )
+            };
           });
         };
 
         render() {
-          console.log('--App render--');
-          // 5. Instead of a "loading" string we will render our new Loading component
+          console.log('--App render--')
           if (this.state.loading) {
-            return <Loading />
+            return <h1>Loading...</h1>
           }
-
           return (
             <div>
               <input
-                type="text"
-                placeholder="new item"
+                type={'text'}
+                placeholder={'new item'}
                 value={this.state.input}
-                onChange={e => this.updateInput(e.target.value)}
+                onChange={event => this.updateInput(event.target.value)}
               />
               <button onClick={this.handleAddTodo}>Submit</button>
-              <br />
-              <button onClick={() => this.setState({ todos: [] })}>Clear All</button>
               <TodoList
                 list={this.state.todos.filter(item => item.completed === false)}
                 onRemoveItem={this.handleRemoveTodo}
@@ -237,7 +182,3 @@
     </script>
   </body>
 </html>
-
-<!-- REFERENCES -->
-<!-- reactjs.org -->
-<!-- tylermcginnis.com -->

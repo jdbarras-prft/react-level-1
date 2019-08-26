@@ -75,28 +75,26 @@
             ],
             input: ''
           };
-          console.log('--constructor--');
+          console.log('--App constructor--');
         }
 
         componentDidMount() {
-          console.log('--componentDidMount--');
+          console.log('--App componentDidMount--');
         }
 
         shouldComponentUpdate(nextProps, nextState) {
-          console.log('--shouldComponentUpdate');
+          console.log('--App shouldComponentUpdate--');
           return true;
           // if (this.state.input !== nextState.input)
           //   return true;
         }
 
-        componentDidUpdate(prevProps, prevState, snapshot) {
-          if (this.props.userID !== prevProps.userID) {
-            this.fetchData(this.props.userID);
-          }
+        componentDidUpdate(prevProps, prevState) {
+          console.log('--App componentDidUpdate--')
         }
 
         componentWillUnmount() {
-          console.log('--componentWillUnmount--');
+          console.log('--App componentWillUnmount--');
         }
 
         handleRemoveTodo = item => {
@@ -116,11 +114,10 @@
               }
             ]),
             input: ''
-          }));
+          }))
         };
 
-        updateInput = e => {
-          const value = e.target.value;
+        updateInput = value => {
           this.setState({ input: value });
         };
 
@@ -138,14 +135,14 @@
         };
 
         render() {
-          console.log('--render--');
+          console.log('--App render--');
           return (
             <div>
               <input
                 type="text"
                 placeholder="new item"
                 value={this.state.input}
-                onChange={this.updateInput}
+                onChange={e => this.updateInput(e.target.value)}
               />
               <button onClick={this.handleAddTodo}>Submit</button>
               <br />
@@ -166,8 +163,6 @@
 
       ReactDOM.render(<App />, document.getElementById('root'));
     </script>
-
-    <a href="./state4.html">PREV</a>
   </body>
 </html>
 

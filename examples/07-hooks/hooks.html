@@ -29,12 +29,12 @@
                 task: 'code',
                 completed: false
               }
-            ]
+            ];
 
-            setTimeout(() => res(todos), 2000);
-          })
+            setTimeout(() => res(todos), 5000);
+          });
         }
-      }
+      };
     </script>
 
     <script type="text/babel">
@@ -78,56 +78,45 @@
         );
       };
 
-      // class components
-      class Loading extends React.Component {
+      const Loading = props => {
+
+        const [text, setText] = React.useState('Loading');
+
+        React.useEffect(() => {
+          const stopper = text + '...';
+
+          const intervalId = setInterval(() => {
+            console.log('Interval Fired');
+            setText(prevText => (
+              prevText === stopper
+                ? 'Loading'
+                : prevText + '.'
+            ))
+          }, 300);
+
+          return () => {
+            console.log('--- Running cleanup, clearing interval ---');
+            clearInterval(intervalId);
+          }
+        }, []);
+
+        return <p>{text}</p>
+      }
+
+      class App extends React.Component {
         constructor(props) {
           super(props);
 
           this.state = {
-            text: 'Loading'
-          }
+            todos: [],
+            input: '',
+            loading: true
+          };
+          console.log('--App constructor--');
         }
 
         componentDidMount() {
-          const stopper = this.state.text + '...';
-
-          this.intervalId = setInterval(() => {
-            console.log('running');
-            this.state.text === stopper
-              ? this.setState({text: 'Loading'})
-              : this.setState((prevState) => {
-                return{
-                  text: prevState.text + '.'
-                }
-             })
-          }, 300)
-        }
-
-        // componentWillUnmount() {
-        //   clearInterval(this.intervalId);
-        // }
-
-        render() {
-          return <p>{this.state.text}</p>
-        }
-      }
-
-      const App = props => {
-
-        const [todos, setTodos] = useState([]);
-        const [input, setInput] = useState('');
-        const [loading, setLoading] = useState(true);
-
-        useEffect(() => {
-
-        }, []);
-        // ^ Empty array means to only do this on component mount. 
-        // If you want the effect to trigger on every render, don't supply a 2nd arg.
-        // If you want to do this based on a prop change, put a prop in this array
-        // The effect will only fire if the props in the array have changed
-
-        componentDidMount() {
-          console.log('--componentDidMount--');
+          console.log('--App componentDidMount--');
           API.fetchTodos()
             .then((todos) => {
               this.setState({ 
@@ -138,11 +127,11 @@
         }
 
         componentDidUpdate() {
-          console.log('--componentDidUpdate--');
+          console.log('--App componentDidUpdate--');
         }
 
         componentWillUnmount() {
-          console.log('--componentWillUnmount--');
+          console.log('--App componentWillUnmount--');
         }
 
         handleRemoveTodo = item => {
@@ -165,8 +154,7 @@
           }));
         };
 
-        updateInput = e => {
-          const value = e.target.value;
+        updateInput = value => {
           this.setState({ input: value });
         };
 
@@ -184,8 +172,8 @@
         };
 
         render() {
-          console.log('--render--');
-
+          console.log('--App render--');
+          // 5. Instead of a "loading" string we will render our new Loading component
           if (this.state.loading) {
             return <Loading />
           }
@@ -196,7 +184,7 @@
                 type="text"
                 placeholder="new item"
                 value={this.state.input}
-                onChange={this.updateInput}
+                onChange={e => this.updateInput(e.target.value)}
               />
               <button onClick={this.handleAddTodo}>Submit</button>
               <br />
