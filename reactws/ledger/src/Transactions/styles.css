@@ -1,0 +1,9 @@
+.transactionsContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.transactionBox {
+  width: 33vw;
+  padding: 10px;
+}

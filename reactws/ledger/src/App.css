@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+}
+
+.header {
+  color: #CC1F20;
+  background-color: black;
+}
+
+.header h1 {
+  margin-top: 0px;
+}
