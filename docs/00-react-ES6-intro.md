@@ -15,9 +15,7 @@ This lesson assumes a basic knowledge of JavaScript. It will be assumed you have
 
 5. You will see syntax that you may not have seen when studying JS. This is EcmaScript 2015 (ES2015), (_also confusingly called ES6_). ES2015 goes hand-in-hand with React. It is not mandatory, but it is expected in the way that TypeScript is expected with Angular. You will just about always see them together in the wild. It's so expected that it's worth making a diversion to highlight a few of the differences. The next section will hit the changes you are most likely to see.
 
-<div style="page-break-after: always;"></div>
-
-## EcmaScript 2015 (ES2015/ES6) - The JS Features You Didn't Know You Wanted
+## EcmaScript 2015 (ES2015/ES6)
 
 ES2015 and ES6 are purposely used interchangeably in this lesson because you may see them both. They are two names for the same thing. Most of the changes are syntactic sugar that make life easier for developers. "Syntactic sugar" might make it sound like these features are window dressing and are unimportant. That's not the case, particularly in the case of React which makes use of things like ES2015 classes and modules as best practices.  
 
