@@ -1,0 +1,41 @@
+This is the React Workshop final project.
+
+---------Acceptance Criteria---------
+
+Students should design a marketplace website with these core features:
+    - A user's total cart price tracking should be tracked
+    - A user should be able to clear the total cart price 
+    - The site should display the different items within the marketplace page. 
+        - Each item should have:
+            - A price
+            - An image
+            - A title/name
+    - A user should be able to select a quantity of an item before adding it to their cart
+    - A user should be able to add items to the marketplace through some form
+    - The site should have a header and a footer
+        - The header should be at the top of the page
+        - The footer is always at the very bottom of the page, and should only be visible if the user has the bottom of the page in the view. As in, the footer should be pushed 
+          to the bottom of the page based off the amount of content on the page.
+
+---------Additional Requirements---------
+
+    - Students should be using functional based React components
+    - The student should use at least one useState within the app
+    - The student should use at least one useEffect within the app
+    - The student should establish at least one container to componet relationship and pass props down properly
+    - The app should not crashed based off any reasonable user interaction. Such as adding an item to the marketplace with data that will crash the app. 
+    - The student should also add one additional feature to the app which is not present in the example app
+
+---------Possible Feature Extensions---------
+    - Recipt with Cart Details
+    - Remove items from the marketplace
+    - Admin page for adding/removing items rather than having it on the main page
+    - Click on an item which opens up the item with more details. Could be with modal or another route. Could contain macros or just more details.
+    - Image preview before a user adds a new item to the marketplace
+    - Save cart across sessions
+    - Create api for storing products versus using a mock/manual entry
+    - Drag cards around/reorder cards on page
+    - Filtering of products
+    - Sorting of products
+
+    

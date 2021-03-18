@@ -1,0 +1,14 @@
+
+.content{
+    padding: 3rem 3rem 5rem 3rem;
+    min-height: calc(100vh - 5rem - 7.5rem);
+    box-sizing: border-box;
+    position: relative;
+}
+
+
+.content_add-item-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3rem;
+}

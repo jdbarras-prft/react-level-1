@@ -1,0 +1,20 @@
+
+.header{
+    background-color: var(--color-grey-dark);
+    height:5rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: x-large;
+    text-transform: uppercase;
+    position: relative;
+    color:var(--color-gold-dark);
+    box-shadow: 0 -2rem 4rem #B79967;
+    letter-spacing: 0.5rem;
+}
+
+.header_label{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}

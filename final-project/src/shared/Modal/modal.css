@@ -1,0 +1,14 @@
+
+.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--color-white);
+    min-height: 200px;
+    min-width: 150px;
+    z-index: 101;
+    border-radius: 1rem;
+    border: 2px solid var(--color-gold-light);
+}
