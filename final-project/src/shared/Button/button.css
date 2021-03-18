@@ -1,0 +1,29 @@
+
+.btn{
+    background-color: var(--color-red-dark);
+    height:4rem;
+    border-radius: 1rem;
+    padding:.5rem;
+    color:var(--color-white);
+    border: 2px solid var(--color-white);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: small;
+    transition: all .2s;
+    transform: translateY(0px);
+    min-width: 6rem;
+    justify-content: center;
+    outline:none;
+}
+.btn:hover{
+    background-color: var(--color-red-light);
+}
+.btn:active{
+    transform: translateY(3px);
+}
+.btn:disabled{
+    background-color: var(--color-grey-light);
+    color: var(--color-grey-dark);
+    cursor: not-allowed;
+}

@@ -1,0 +1,40 @@
+
+.new-item-modal{
+    padding:1rem 3rem 1rem 3rem;
+}
+
+.new-item-modal_btn-container{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 2rem;
+}
+
+.new-item-modal_field{
+    padding-top:2rem;
+}
+
+.new-item-modal_field-label{
+    font-size: large;
+    font-weight: 700;
+    color: var(--color-grey-dark);
+    padding-right: 1rem;
+}
+
+.new-item-modal_field-input{
+    margin-top:1rem;
+    width: 100%;
+    border:2px solid var(--color-gold-dark);
+    border-radius: 0.5rem;
+    height:4rem;
+    padding:1rem;
+    font-weight: 700;
+    transition: all .2s;
+}
+.new-item-modal_field-input--selected{
+    border:2px solid var(--color-red-dark);
+}
+
+.new-item-modal_field-input:focus{
+    outline: none;
+    border:2px solid var(--color-gold-light);
+}

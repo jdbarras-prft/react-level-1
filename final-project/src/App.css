@@ -1,0 +1,38 @@
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+:root{
+    --color-gold-dark:#8C734B;
+    --color-gold-light:#B79967;
+    --color-red-dark:#CC1F20;
+    --color-red-light:#E61717;
+    --color-white:#fff;
+    --color-grey-dark:#222;
+    --color-grey-light:#444;
+    --color-black:#010101;
+    --base-font-family:"Lato";
+}
+
+.app{
+  background-color: var(--color-black);
+  min-height: 100vh;
+  height:100%;
+  font-family: var(--base-font-family);
+  color:var(--color-white);
+  font-weight: 400;
+  position: relative;
+}
+
+.app_backdrop-helper{
+  overflow: hidden;
+}

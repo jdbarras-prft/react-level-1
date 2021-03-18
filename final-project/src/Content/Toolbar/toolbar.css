@@ -1,0 +1,13 @@
+
+.toolbar{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom:3rem;
+    align-items: center;
+}
+.toolbar_total-label{
+    font-size: large;
+}
+.toolbar_total-price{
+    color: var(--color-red-light);
+}

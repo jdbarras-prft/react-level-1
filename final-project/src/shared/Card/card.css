@@ -1,0 +1,104 @@
+.card{
+    height: 33.5rem;
+    width: 22rem;
+    background-color:var(--color-grey-light);
+    border-radius: 1rem;
+    border: solid 2px var(--color-gold-dark);
+    position: relative;
+}
+
+.card_title{
+    padding: .5rem;
+    padding-top: 1rem;
+    font-size: large;
+    text-align: center;
+}
+
+.card_image-wrapper{
+    display: flex;
+    justify-content: center;  
+}
+
+.card_image{
+    width:150px;
+    height: 150px;
+    object-fit: cover;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    border: 2px solid var(--color-gold-dark);
+}
+
+.card_quantity-wrapper{
+    text-align: center;
+    padding-top: 1rem;
+    padding-left: 10%;
+    padding-right: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+-moz-appearance: textfield;
+}
+
+.card_quantity-input{
+    width: 4rem;
+    border-radius: 1rem;
+    text-align: center;
+    height: 2.5rem;
+    border-color: var(--color-gold-dark);
+
+    outline: none;
+
+}
+
+.card_quantity-btn{
+    height:2.5rem;
+    width: 3rem;
+    font-size: large;
+    border-radius: 1rem;
+    outline: none;
+}
+
+.card_btn--active{
+    background-color: var(--color-red-dark);
+    color: var(--color-white);
+    border: 1px solid var(--color-grey-dark);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all .2s;
+    transform: translateY(0);
+}
+.card_btn--active:hover{
+    background-color: var(--color-red-light);
+}
+.card_btn--active:active{
+    transform: translateY(2px);
+}
+
+.card_btn--inactive{
+    background-color: var(--color-grey-dark);
+    color: var(--color-grey-light);
+    border: 1px solid var(--color-grey-dark);
+    border-radius: 1rem;
+}
+
+.card_apply-btn{
+    width:80%;
+    margin-left: 10%;
+    height:3rem;
+    border-radius: .5rem;
+
+    outline: none;
+    position: absolute;
+    bottom:1.5rem;
+}
